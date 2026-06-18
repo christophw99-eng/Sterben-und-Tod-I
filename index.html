@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Religion Jg. 9 – Sterben und Tod</title>
+<style>
+  :root {
+    --violett: #5C3480;
+    --violett-hell: #A07BC4;
+    --violett-glow: #D4B8F0;
+    --sand: #F5F0FA;
+    --sand-dunkel: #E8DDF5;
+    --slate: #1F1A2E;
+    --slate-hell: #5A4E72;
+    --weiss: #FDF9FF;
+    --amber: #C4824A;
+    --amber-hell: #F0C090;
+    --schatten: rgba(31,26,46,0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background-color: #100D1A;
+    background-image:
+      radial-gradient(ellipse at 25% 15%, rgba(92,52,128,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 75% 85%, rgba(196,130,74,0.10) 0%, transparent 55%);
+    min-height: 100vh;
+    color: var(--slate);
+  }
+
+  /* ─── HEADER ─────────────────────────────────────────── */
+  header {
+    background: linear-gradient(135deg, #3A1D5C 0%, #251240 60%, #140A28 100%);
+    padding: 44px 24px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 4px solid var(--amber);
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(
+      45deg, transparent, transparent 30px,
+      rgba(255,255,255,0.015) 30px, rgba(255,255,255,0.015) 31px
+    );
+  }
+  .header-ornament {
+    font-size: 0.95rem;
+    color: var(--amber);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    opacity: 0.9;
+  }
+  header h1 {
+    font-size: clamp(1.6rem, 4vw, 2.7rem);
+    color: var(--weiss);
+    line-height: 1.25;
+    margin-bottom: 6px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+  }
+  header h1 em {
+    color: var(--amber-hell);
+    font-style: normal;
+  }
+  .subtitle {
+    color: #C8B8E8;
+    font-size: 1rem;
+    opacity: 0.85;
+    margin-top: 4px;
+  }
+  .leitfrage-badge {
+    display: inline-block;
+    margin-top: 22px;
+    background: var(--amber);
+    color: #1A0E08;
+    font-size: 1.0rem;
+    font-weight: bold;
+    padding: 11px 30px;
+    border-radius: 40px;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.5);
+    max-width: 90%;
+  }
+  .leitfrage-badge span { font-style: italic; }
+
+  /* ─── FORTSCHRITTSBALKEN ──────────────────────────────── */
+  .progress-container {
+    background: #0E0B18;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 2px solid var(--violett);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .progress-label { color: var(--violett-glow); font-size: 0.85rem; white-space: nowrap; min-width: 90px; }
+  .progress-bar-outer {
+    flex: 1; height: 12px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 6px; overflow: hidden;
+    border: 1px solid rgba(160,123,196,0.35);
+  }
+  .progress-bar-inner {
+    height: 100%;
+    background: linear-gradient(90deg, var(--violett), var(--amber));
+    border-radius: 6px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+  .progress-count { color: var(--violett-glow); font-size: 0.85rem; white-space: nowrap; min-width: 55px; text-align: right; }
+  .reset-btn {
+    background: none;
+    border: 1px solid rgba(160,123,196,0.4);
+    color: var(--violett-glow);
+    padding: 4px 10px; font-size: 0.75rem;
+    border-radius: 4px; cursor: pointer;
+    transition: all 0.2s; font-family: inherit;
+  }
+  .reset-btn:hover { background: rgba(160,123,196,0.15); }
+
+  /* ─── HAUPT-LAYOUT ────────────────────────────────────── */
+  main { max-width: 1100px; margin: 0 auto; padding: 32px 20px 60px; display: flex; flex-direction: column; gap: 28px; }
+
+  /* ─── VIEW TOGGLE ─────────────────────────────────────── */
+  .view-toggle { display: flex; gap: 8px; justify-content: flex-end; margin-bottom: 4px; }
+  .view-btn {
+    padding: 6px 16px; border-radius: 20px;
+    border: 1.5px solid rgba(160,123,196,0.4);
+    background: transparent; color: var(--violett-glow);
+    font-size: 0.8rem; cursor: pointer;
+    transition: all 0.2s; font-family: 'Georgia', serif;
+  }
+  .view-btn.active { background: var(--violett); color: var(--weiss); font-weight: bold; }
+  .lehrer-only { display: none; }
+  body.lehrer-modus .lehrer-only { display: block; }
+  body.lehrer-modus .ab-item.lehrer-only { display: flex; flex-direction: column; }
+
+  /* ─── LEITFRAGE PANEL ─────────────────────────────────── */
+  .leitfrage-panel {
+    background: linear-gradient(135deg, #1C1030, #120822);
+    border-radius: 12px;
+    padding: 28px 30px;
+    color: var(--weiss);
+    border: 2px solid rgba(92,52,128,0.5);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
+  .leitfrage-panel h2 { color: var(--violett-glow); font-size: 1.0rem; margin-bottom: 8px; letter-spacing: 1px; text-transform: uppercase; }
+  .leitfrage-panel .frage { font-size: 1.4rem; font-style: italic; color: var(--amber-hell); margin-bottom: 16px; line-height: 1.45; }
+  .leitfrage-panel p { font-size: 0.88rem; color: #C0B0E0; line-height: 1.6; }
+
+  /* ─── INFO-BANNER ─────────────────────────────────────── */
+  .info-banner {
+    background: linear-gradient(135deg, #1A1226, #110D1E);
+    border: 1px solid rgba(92,52,128,0.35);
+    border-radius: 10px;
+    padding: 16px 22px;
+    color: #B0A0D0;
+    font-size: 0.85rem;
+    display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
+  }
+  .info-item { display: flex; align-items: center; gap: 8px; }
+  .info-icon { font-size: 1.2rem; }
+
+  /* ─── PHASEN-KARTE ────────────────────────────────────── */
+  .phase-card {
+    background: var(--sand);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 24px var(--schatten), 0 1px 0 rgba(255,255,255,0.1);
+    border: 1px solid rgba(92,52,128,0.2);
+  }
+  .phase-header {
+    display: flex; align-items: center; gap: 16px;
+    padding: 18px 24px;
+    cursor: pointer; user-select: none;
+    transition: background 0.2s;
+  }
+  .phase-header:hover { background: rgba(92,52,128,0.06); }
+  .phase-num {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; font-weight: bold;
+    color: var(--weiss); flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .phase-title-block { flex: 1; }
+  .phase-title { font-size: 1.15rem; font-weight: bold; }
+  .phase-desc { font-size: 0.82rem; color: var(--slate-hell); margin-top: 3px; }
+  .phase-toggle { color: var(--slate-hell); font-size: 1.3rem; transition: transform 0.3s; }
+  .phase-card.open .phase-toggle { transform: rotate(180deg); }
+  .phase-progress-mini { font-size: 0.78rem; color: var(--slate-hell); margin-top: 4px; }
+
+  .phase-body {
+    display: none;
+    padding: 0 24px 24px;
+    border-top: 1px solid rgba(92,52,128,0.2);
+  }
+  .phase-card.open .phase-body { display: block; }
+
+  /* Farben pro Phase */
+  .ph0 .phase-num { background: #5C3480; }
+  .ph0 .phase-header { border-left: 5px solid #5C3480; }
+  .ph1 .phase-num { background: #2E6B7A; }
+  .ph1 .phase-header { border-left: 5px solid #2E6B7A; }
+  .ph2 .phase-num { background: #7A4A2E; }
+  .ph2 .phase-header { border-left: 5px solid #7A4A2E; }
+  .ph3 .phase-num { background: #3A5E8A; }
+  .ph3 .phase-header { border-left: 5px solid #3A5E8A; }
+  .ph4 .phase-num { background: #5C3480; }
+  .ph4 .phase-header { border-left: 5px solid #5C3480; }
+
+  /* ─── AB-ITEMS ────────────────────────────────────────── */
+  .ab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px; margin-top: 18px;
+  }
+  .ab-item {
+    background: var(--weiss);
+    border-radius: 8px;
+    padding: 14px 16px;
+    border: 1.5px solid rgba(92,52,128,0.2);
+    transition: all 0.2s; position: relative;
+  }
+  .ab-item:hover { border-color: var(--violett); box-shadow: 0 3px 12px var(--schatten); }
+  .ab-item.done { background: #F0EEF7; border-color: #A07BC4; opacity: 0.75; }
+  .ab-item.done .ab-title { text-decoration: line-through; color: var(--slate-hell); }
+  .ab-check-row { display: flex; align-items: flex-start; gap: 10px; }
+  .ab-check {
+    width: 20px; height: 20px; border-radius: 4px;
+    border: 2px solid var(--violett);
+    cursor: pointer; flex-shrink: 0;
+    appearance: none; -webkit-appearance: none;
+    background: white; margin-top: 1px; transition: all 0.15s;
+  }
+  .ab-check:checked { background: var(--violett); border-color: var(--violett); }
+  .ab-check:checked::after {
+    content: '✓'; color: white; font-size: 13px;
+    display: flex; align-items: center; justify-content: center;
+    height: 100%; line-height: 1; margin-top: -1px; margin-left: 2px;
+  }
+  .ab-text { flex: 1; }
+  .ab-title { font-size: 0.9rem; font-weight: bold; color: var(--slate); line-height: 1.35; }
+  .ab-sub { font-size: 0.78rem; color: var(--slate-hell); margin-top: 3px; font-style: italic; }
+  .ab-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .ab-link {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 0.75rem; padding: 4px 10px;
+    border-radius: 20px; text-decoration: none;
+    transition: all 0.15s; font-family: 'Georgia', serif;
+  }
+  .ab-link.pdf {
+    background: #F5F0FA; color: var(--violett);
+    border: 1px solid rgba(92,52,128,0.3);
+  }
+  .ab-link.pdf:hover { background: var(--violett); color: white; }
+  .ab-link.lhr {
+    background: #FFF4E8; color: var(--amber);
+    border: 1px solid rgba(196,130,74,0.3);
+  }
+  .ab-link.lhr:hover { background: var(--amber); color: white; }
+
+  /* ─── WAHL-GRUPPE ─────────────────────────────────────── */
+  .choice-group {
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    gap: 0; align-items: stretch; margin-top: 14px;
+  }
+  .choice-oder {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 10px; font-size: 0.75rem; font-weight: bold;
+    color: var(--slate-hell); letter-spacing: 1px; text-transform: uppercase;
+    gap: 6px; flex-direction: column;
+  }
+  .choice-oder::before, .choice-oder::after {
+    content: ''; display: block; width: 1px; flex: 1;
+    background: rgba(92,52,128,0.3);
+  }
+  .choice-card {
+    background: var(--weiss); border-radius: 8px;
+    padding: 14px 16px; border: 1px solid rgba(92,52,128,0.2);
+  }
+  .choice-level { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; margin-bottom: 5px; color: var(--slate-hell); }
+  .choice-title { font-size: 0.9rem; font-weight: bold; color: var(--slate); line-height: 1.35; }
+  .choice-sub { font-size: 0.78rem; color: var(--slate-hell); margin-top: 4px; font-style: italic; line-height: 1.4; }
+  @media (max-width: 600px) {
+    .choice-group { grid-template-columns: 1fr; }
+    .choice-oder { flex-direction: row; padding: 6px 0; }
+    .choice-oder::before, .choice-oder::after { width: auto; height: 1px; flex: 1; }
+  }
+
+  /* ─── HINWEIS-BOXEN ───────────────────────────────────── */
+  .hinweis {
+    background: rgba(196,130,74,0.1);
+    border-left: 4px solid var(--amber);
+    border-radius: 4px; padding: 10px 14px;
+    font-size: 0.84rem; color: #5A3A10;
+    margin-top: 14px; line-height: 1.5;
+  }
+  .hinweis strong { color: var(--violett); }
+
+  /* ─── LEHRERCHECK-BLOCK ───────────────────────────────── */
+  .lehrercheck-block {
+    background: linear-gradient(135deg, #F0EAF8, #E6D8F0);
+    border: 1.5px dashed var(--violett);
+    border-radius: 8px; padding: 14px 16px;
+    margin-top: 14px; display: flex;
+    gap: 12px; align-items: flex-start;
+  }
+  .lehrercheck-icon { font-size: 1.8rem; flex-shrink: 0; line-height: 1; }
+  .lehrercheck-text h4 { font-size: 0.9rem; color: var(--violett); margin-bottom: 4px; }
+  .lehrercheck-text p { font-size: 0.82rem; color: var(--slate-hell); line-height: 1.4; }
+
+  /* ─── SECTION-LABEL ───────────────────────────────────── */
+  .section-label {
+    font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 2px; color: var(--slate-hell);
+    margin-top: 20px; margin-bottom: 8px;
+    padding-bottom: 4px; border-bottom: 1px solid rgba(92,52,128,0.25);
+  }
+
+  /* ─── SPERR-LOGIK ─────────────────────────────────────── */
+  .ab-check:disabled { opacity: 0.25; cursor: not-allowed; border-color: #ccc; background: #eee; }
+  .ab-item.item-locked { opacity: 0.45; }
+  .ab-item.item-locked .ab-links { pointer-events: none; opacity: 0.4; }
+  .unlock-hint { font-size: 0.76rem; color: #9A8AAA; font-style: italic; margin-top: 5px; display: flex; align-items: center; gap: 5px; }
+  @keyframes unlockFlash {
+    0%   { box-shadow: 0 0 0 0 rgba(92,52,128,0.0); }
+    30%  { box-shadow: 0 0 24px 8px rgba(92,52,128,0.5); }
+    100% { box-shadow: 0 6px 24px var(--schatten); }
+  }
+  .just-unlocked { animation: unlockFlash 0.9s ease forwards; }
+
+  /* ─── ZITAT-BOX (Vier-Aussagen) ───────────────────────── */
+  .zitat-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-top: 14px;
+  }
+  @media (max-width: 680px) { .zitat-grid { grid-template-columns: 1fr; } }
+  .zitat-card {
+    border-radius: 8px; padding: 14px 16px;
+    font-size: 0.92rem; font-style: italic;
+    line-height: 1.55; color: #2D1A4E;
+    border: 2px solid;
+  }
+  .zitat-card.a { background: #EDE8F5; border-color: #9B7DC8; }
+  .zitat-card.b { background: #E8F0F5; border-color: #5A8EA0; }
+  .zitat-card.c { background: #F5EDE8; border-color: #C47E5A; }
+  .zitat-card.d { background: #EBF5EA; border-color: #5A9E6A; }
+  .zitat-label {
+    font-style: normal; font-weight: bold;
+    font-size: 0.78rem; letter-spacing: 1px;
+    text-transform: uppercase; margin-bottom: 6px;
+    display: block;
+  }
+  .zitat-card.a .zitat-label { color: #6B3FAA; }
+  .zitat-card.b .zitat-label { color: #2E6B8A; }
+  .zitat-card.c .zitat-label { color: #8A4A2E; }
+  .zitat-card.d .zitat-label { color: #2E7A3A; }
+
+  /* ─── WAHLAUFGABEN (A/B/C/D) ──────────────────────────── */
+  .wahl-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-top: 14px;
+  }
+  @media (max-width: 680px) { .wahl-grid { grid-template-columns: 1fr; } }
+  .wahl-card {
+    border-radius: 10px; padding: 16px;
+    border: 2px solid; cursor: default; transition: box-shadow 0.2s;
+  }
+  .wahl-card:hover { box-shadow: 0 4px 16px rgba(92,52,128,0.15); }
+  .wahl-badge {
+    display: inline-block; width: 32px; height: 32px;
+    border-radius: 50%; text-align: center; line-height: 32px;
+    font-weight: bold; font-size: 1.0rem; color: white;
+    margin-bottom: 8px;
+  }
+  .wahl-card.a { background: #F0EAF8; border-color: #9B7DC8; }
+  .wahl-card.a .wahl-badge { background: #7B5EA7; }
+  .wahl-card.b { background: #E8F0F5; border-color: #5A8EA0; }
+  .wahl-card.b .wahl-badge { background: #2E6B8A; }
+  .wahl-card.c { background: #F5EDE8; border-color: #C47E5A; }
+  .wahl-card.c .wahl-badge { background: #8A4A2E; }
+  .wahl-card.d { background: #EBF5EA; border-color: #5A9E6A; }
+  .wahl-card.d .wahl-badge { background: #2E7A3A; }
+  .wahl-title { font-size: 0.9rem; font-weight: bold; color: var(--slate); margin-bottom: 4px; }
+  .wahl-type { font-size: 0.76rem; color: var(--slate-hell); font-style: italic; margin-bottom: 8px; }
+
+  /* ─── RESPONSIVE ──────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .ab-grid { grid-template-columns: 1fr; }
+    .progress-container { flex-wrap: wrap; }
+    header { padding: 28px 16px; }
+    main { padding: 20px 12px 40px; }
+  }
+
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #0E0B18; }
+  ::-webkit-scrollbar-thumb { background: var(--violett); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-ornament">✦ Religion · Jahrgang 9 · Freiarbeit ✦</div>
+  <h1>Sterben und Tod – <em>Was passiert am Ende?</em></h1>
+  <div class="subtitle">Offene Unterrichtseinheit · Klasse 9 · Religion</div>
+  <div class="leitfrage-badge">🕯️ Leitfrage: <span>„Was passiert in einem Menschen, wenn er weiß, dass er sterben wird – und wie können wir als Mitmenschen damit umgehen?"</span></div>
+</header>
+
+<!-- FORTSCHRITTSLEISTE -->
+<div class="progress-container">
+  <span class="progress-label">📋 Fortschritt</span>
+  <div class="progress-bar-outer">
+    <div class="progress-bar-inner" id="progressBar"></div>
+  </div>
+  <span class="progress-count" id="progressCount">0 / 0</span>
+  <button class="reset-btn" id="btnReset">Zurücksetzen</button>
+</div>
+
+<main>
+
+  <!-- VIEW TOGGLE -->
+  <div class="view-toggle">
+    <button class="view-btn active" id="btnSchueler">👤 Schüleransicht</button>
+    <button class="view-btn" id="btnLehrer">👩‍🏫 Lehreransicht</button>
+  </div>
+
+  <!-- LEITFRAGE PANEL -->
+  <div class="leitfrage-panel">
+    <h2>🕯️ Die Leitfrage</h2>
+    <div class="frage">„Was passiert in einem Menschen, wenn er weiß, dass er sterben wird – und wie können wir als Mitmenschen damit umgehen?"</div>
+    <p>Diese Frage begleitet euch durch die gesamte Einheit. Ihr lernt das Modell der Sterbephasen nach <strong style="color: var(--violett-glow);">Elisabeth Kübler-Ross</strong> kennen, setzt euch mit dem Thema Abschiednehmen auseinander – und überlegt am Ende: Wie kann ich Menschen nahe sein, die sterben oder die jemanden verlieren?</p>
+  </div>
+
+  <!-- INFO-BANNER -->
+  <div class="info-banner">
+    <div class="info-item"><span class="info-icon">📚</span> Religion · Jg. 9</div>
+    <div class="info-item"><span class="info-icon">⏱️</span> 2–3 Stunden</div>
+    <div class="info-item"><span class="info-icon">🎯</span> Sterbephasen nach Kübler-Ross</div>
+    <div class="info-item"><span class="info-icon">🕯️</span> Thema: Sterben und Tod</div>
+    <div class="info-item"><span class="info-icon">🔓</span> Freie Reihenfolge in Phase III möglich</div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       PHASE 0: EINSTIEG (Plenum)
+  ══════════════════════════════════════════════════════ -->
+  <div class="phase-card ph0 open" id="ph0">
+    <div class="phase-header">
+      <div class="phase-num">✦</div>
+      <div class="phase-title-block">
+        <div class="phase-title">Einstieg – Das Vier-Aussagen-Rätsel</div>
+        <div class="phase-desc">Plenum · Leitfrage kennenlernen · Lernplan erhalten · Freiarbeit erklären</div>
+        <div class="phase-progress-mini" id="prog-ph0"></div>
+      </div>
+      <div class="phase-toggle">▾</div>
+    </div>
+    <div class="phase-body">
+
+      <!-- Vier Aussagen -->
+      <div class="section-label">Das Rätsel: Vier Aussagen – eine Person?</div>
+      <div class="zitat-grid">
+        <div class="zitat-card a">
+          <span class="zitat-label">Aussage A</span>
+          „Das ist doch Unsinn. Die Ärzte irren sich – ich habe das Ergebnis selbst gegoogelt, das kann nicht stimmen. Ich fühle mich doch noch gut!"
+        </div>
+        <div class="zitat-card b">
+          <span class="zitat-label">Aussage B</span>
+          „Warum ich?! Das ist so ungerecht! Ich lebe gesund, treibe Sport – und dann das! Die hätten das früher entdecken können!"
+        </div>
+        <div class="zitat-card c">
+          <span class="zitat-label">Aussage C</span>
+          „Wenn ich noch zwei Jahre bekomme – nur zwei Jahre – dann höre ich auf zu rauchen. Ich kümmere mich um alles. Ich verspreche es."
+        </div>
+        <div class="zitat-card d">
+          <span class="zitat-label">Aussage D</span>
+          „Ich bin so müde. Ich möchte einfach nur noch bei meiner Familie sein. Es ist okay. Ich glaube, ich habe das akzeptiert."
+        </div>
+      </div>
+
+      <div class="hinweis" style="margin-top:16px;">
+        💬 <strong>Diskutiert:</strong> Wer sagt das? Stammen alle vier Aussagen von derselben Person? In welcher Reihenfolge? Was passiert mit dieser Person?
+      </div>
+
+      <div class="ab-grid" style="margin-top:18px;">
+        <div class="ab-item" data-id="e1">
+          <div class="ab-check-row">
+            <input type="checkbox" class="ab-check">
+            <div class="ab-text">
+              <div class="ab-title">Lernplan erhalten und gelesen</div>
+              <div class="ab-sub">Persönlichen Laufzettel durchlesen und Überblick verschaffen</div>
+              <div class="ab-links">
+                <a class="ab-link pdf" href="Laufplan.pdf" target="_blank">📄 Laufplan (PDF)</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ab-item" data-id="e2">
+          <div class="ab-check-row">
+            <input type="checkbox" class="ab-check">
+            <div class="ab-text">
+              <div class="ab-title">Leitfrage und Freiarbeitsprinzip kennen</div>
+              <div class="ab-sub">Rätsel besprochen · Kübler-Ross angekündigt · Freiarbeit erklärt</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lehrercheck-block lehrer-only">
+        <div class="lehrercheck-icon">📝</div>
+        <div class="lehrercheck-text">
+          <h4>Lehrerhinweis – Einstieg (Plenum, ca. 15 Min.)</h4>
+          <p>Die vier Aussagen projizieren. Impulsfragen: <em>Wer sagt das? Stammt das von einer Person? In welcher Reihenfolge?</em> Auflösung: Alle vier Aussagen stammen von derselben 47-jährigen Person mit unheilbarer Diagnose. Reihenfolge: A → B → C → D (Verneinung → Zorn → Verhandeln → Akzeptanz). Überleitung zu Kübler-Ross. <a href="Lehrerhinweise.pdf" target="_blank" style="color:var(--violett);">→ Vollständige Lehrerhinweise (PDF)</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       PHASE I: DIE STERBEPHASEN ENTDECKEN
+  ══════════════════════════════════════════════════════ -->
+  <div class="phase-card ph1" id="ph1">
+    <div class="phase-header">
+      <div class="phase-num">I</div>
+      <div class="phase-title-block">
+        <div class="phase-title">Die Sterbephasen nach Kübler-Ross entdecken</div>
+        <div class="phase-desc">Texte sortieren · Phasen benennen · Zitate zuordnen</div>
+        <div class="phase-progress-mini" id="prog-ph1"></div>
+      </div>
+      <div class="phase-toggle">▾</div>
+    </div>
+    <div class="phase-body">
+
+      <div class="section-label">Schritt 1: Texte sortieren und benennen</div>
+      <div class="ab-grid">
+        <div class="ab-item" data-id="ab1a">
+          <div class="ab-check-row">
+            <input type="checkbox" class="ab-check">
+            <div class="ab-text">
+              <div class="ab-title">AB: Die Phasen des Sterbens 1</div>
+              <div class="ab-sub">Fünf Textsegmente sortieren · eigene Überschriften finden · dann mit Original vergleichen</div>
+              <div class="ab-links">
+                <a class="ab-link pdf" href="AB_Phasen_des_Sterbens_1.pdf" target="_blank">📄 AB 1 (PDF)</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hinweis">
+        💡 <strong>Tipp:</strong> Versuche zuerst, die Texte ohne Titel zu lesen und eigene Überschriften zu entwickeln. Erst danach schau dir die vorgegebenen Phasennamen an.
+      </div>
+
+      <div class="section-label" style="margin-top:20px;">Schritt 2: Zitate zuordnen</div>
+      <div class="ab-grid">
+        <div class="ab-item" data-id="ab1b">
+          <div class="ab-check-row">
+            <input type="checkbox" class="ab-check">
+            <div class="ab-text">
+              <div class="ab-title">AB: Die Phasen des Sterbens 2</div>
+              <div class="ab-sub">Zitate aus echten Interviews den richtigen Phasen zuordnen · mit Einstiegs-Aussagen vergleichen</div>
+              <div class="ab-links">
+                <a class="ab-link pdf" href="AB_Phasen_des_Sterbens_2.pdf" target="_blank">📄 AB 2 (PDF)</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hinweis">
+        💡 <strong>Verbindung zum Einstieg:</strong> Erkennst du die Aussagen vom Anfang der Stunde wieder? Welche Phase steckt hinter Aussage A, B, C und D?
+      </div>
+
+      <div class="lehrercheck-block lehrer-only">
+        <div class="lehrercheck-icon">📝</div>
+        <div class="lehrercheck-text">
+          <h4>Lehrerhinweis – Phase I</h4>
+          <p>AB 1: Die fünf Textsegmente sind bewusst ohne Überschrift. Schüler entwickeln erst eigene Titel. AB 2: Ideal für 2er-Teams. Die Zuordnungsaufgabe kann auch als Streifen ausgeschnitten werden (Schere). Verbindung zum Einstieg herstellen: Aussagen A–D werden jetzt erklärt.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       PHASE II: ABSCHIEDNEHMEN
+  ══════════════════════════════════════════════════════ -->
+  <div class="phase-card ph2" id="ph2">
+    <div class="phase-header">
+      <div class="phase-num">II</div>
+      <div class="phase-title-block">
+        <div class="phase-title">Abschiednehmen – Die andere Seite des Sterbens</div>
+        <div class="phase-desc">Perspektive der Angehörigen · Texte erschließen · persönliche Reflexion</div>
+        <div class="phase-progress-mini" id="prog-ph2"></div>
+      </div>
+      <div class="phase-toggle">▾</div>
+    </div>
+    <div class="phase-body">
+
+      <div class="ab-grid">
+        <div class="ab-item" data-id="ab2a">
+          <div class="ab-check-row">
+            <input type="checkbox" class="ab-check">
+            <div class="ab-text">
+              <div class="ab-title">AB: Abschiednehmen</div>
+              <div class="ab-sub">Texte und Aufgaben zum Thema Abschiednehmen · Tagebucheintrag und Margot Käßmann</div>
+              <div class="ab-links">
+                <a class="ab-link pdf" href="AB_Abschiednehmen.pdf" target="_blank">📄 AB Abschiednehmen (PDF)</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ab-item" data-id="ab2b">
+          <div class="ab-check-row">
+            <input type="checkbox" class="ab-check">
+            <div class="ab-text">
+              <div class="ab-title">Ergänzungstext: Wie wichtig ist das Abschiednehmen?</div>
+              <div class="ab-sub">Vertiefender Text zum Lesen und Erschließen</div>
+              <div class="ab-links">
+                <a class="ab-link pdf" href="Wie_wichtig_Abschiednehmen.pdf" target="_blank">📄 Ergänzungstext (PDF)</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lehrercheck-block">
+        <div class="lehrercheck-icon">🤝</div>
+        <div class="lehrercheck-text">
+          <h4>Kurzes Gespräch mit der Lehrperson</h4>
+          <p>Nach dem Abschiednehmen-AB kurz mit der Lehrperson sprechen: Was hat dich am meisten überrascht oder berührt? Was nimmst du mit?</p>
+        </div>
+      </div>
+
+      <div class="lehrercheck-block lehrer-only">
+        <div class="lehrercheck-icon">📝</div>
+        <div class="lehrercheck-text">
+          <h4>Lehrerhinweis – Phase II</h4>
+          <p>Das AB Abschiednehmen enthält Aufgaben zum Tagebucheintrag und einen Verweis auf Käßmann-Text – bitte die fehlenden Texte ergänzen (siehe Lehrerhinweise PDF). Der kurze Gesprächsmoment nach Phase II ist kein formales Checkpoint, sondern ein niedrigschwelliger emotionaler Check-in – gerade bei diesem Thema wertvoll.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       PHASE III: WAS JETZT? – WAHLAUFGABEN
+  ══════════════════════════════════════════════════════ -->
+  <div class="phase-card ph3" id="ph3">
+    <div class="phase-header">
+      <div class="phase-num">III</div>
+      <div class="phase-title-block">
+        <div class="phase-title">Was jetzt? – Wähle deine Aufgabe</div>
+        <div class="phase-desc">Freie Wahl · Wissen situativ anwenden · eigene Stimme finden</div>
+        <div class="phase-progress-mini" id="prog-ph3"></div>
+      </div>
+      <div class="phase-toggle">▾</div>
+    </div>
+    <div class="phase-body">
+
+      <div class="hinweis">
+        🎯 Wähle <strong>eine</strong> der vier Aufgaben. Wenn du früher fertig bist, nimm dir eine zweite. Das vollständige Arbeitsblatt mit allen vier Aufgaben findest du hier:
+        <div style="margin-top:8px;">
+          <a class="ab-link pdf" href="AB_Phase4_Wahlaufgaben.pdf" target="_blank" style="font-size:0.85rem;">📄 AB Wahlaufgaben – alle vier Aufgaben (PDF)</a>
+        </div>
+      </div>
+
+      <div class="section-label" style="margin-top:18px;">Die vier Wahlaufgaben im Überblick</div>
+      <div class="wahl-grid">
+        <div class="wahl-card a">
+          <span class="wahl-badge">A</span>
+          <div class="wahl-title">Schreib ihm zurück</div>
+          <div class="wahl-type">Messenger-Chat – erklärend und empathisch antworten</div>
+          <div style="font-size:0.82rem; color:var(--slate-hell); line-height:1.45;">Tom schreibt dir, weil er nicht versteht, warum seine Mutter sich so seltsam verhält. Du weißt, was mit ihr los ist – schreib ihm zurück.</div>
+        </div>
+        <div class="wahl-card b">
+          <span class="wahl-badge">B</span>
+          <div class="wahl-title">Antworten, wenn es darauf ankommt</div>
+          <div class="wahl-type">Online-Forum – Stellung nehmen und begründen</div>
+          <div style="font-size:0.82rem; color:var(--slate-hell); line-height:1.45;">Im Forum streiten sich zwei User über den richtigen Umgang mit einer sterbenden Oma. Wer hat Recht? Begründe mit deinem Wissen.</div>
+        </div>
+        <div class="wahl-card c">
+          <span class="wahl-badge">C</span>
+          <div class="wahl-title">Stellas Abend</div>
+          <div class="wahl-type">Kreativ schreiben – Perspektive wechseln</div>
+          <div style="font-size:0.82rem; color:var(--slate-hell); line-height:1.45;">Stellas Vater hat beim Abendessen das Besteck hingeworfen und geschrien. Sie setzt sich an ihren Schreibtisch. Was schreibt sie in ihr Tagebuch?</div>
+        </div>
+        <div class="wahl-card d">
+          <span class="wahl-badge">D</span>
+          <div class="wahl-title">Ratgeber für die Telefonseelsorge</div>
+          <div class="wahl-type">Leitfaden erstellen – Wissen strukturiert anwenden</div>
+          <div style="font-size:0.82rem; color:var(--slate-hell); line-height:1.45;">Ein neuer Freiwilliger fragt: „Was sage ich, wenn jemand anruft, weil sein Vater im Sterben liegt?" Schreibe ihm einen kurzen Ratgeber.</div>
+        </div>
+      </div>
+
+      <div class="ab-grid" style="margin-top:18px; grid-template-columns: 1fr;">
+        <div class="ab-item" data-id="ab3done" style="border-color: rgba(92,52,128,0.4); background: rgba(92,52,128,0.05);">
+          <div class="ab-check-row">
+            <input type="checkbox" class="ab-check">
+            <div class="ab-text">
+              <div class="ab-title">✓ Wahlaufgabe abgeschlossen</div>
+              <div class="ab-sub">Ich habe mindestens eine Aufgabe vollständig bearbeitet und bin bereit für den Abschluss.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lehrercheck-block lehrer-only">
+        <div class="lehrercheck-icon">📝</div>
+        <div class="lehrercheck-text">
+          <h4>Lehrerhinweis – Phase III (Wahlaufgaben)</h4>
+          <p>Aufgabe A (Messenger-Chat) eignet sich für leistungsschwächere Schüler – die visuelle Struktur gibt Orientierung. Aufgabe D (Telefonseelsorge-Ratgeber) ist die anspruchsvollste Aufgabe. Die Aufgaben stehen auch auf eigenen Seiten im AB, sodass die Schüler die Aufgabenstellung nicht sehen, die sie nicht gewählt haben.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       PHASE IV: ABSCHLUSS (Plenum)
+  ══════════════════════════════════════════════════════ -->
+  <div class="phase-card ph4" id="ph4">
+    <div class="phase-header">
+      <div class="phase-num">✦</div>
+      <div class="phase-title-block">
+        <div class="phase-title">Abschluss – Rückkehr zur Leitfrage</div>
+        <div class="phase-desc">Plenum · Ergebnisse vorstellen · Leitfrage beantworten · Rückblick</div>
+        <div class="phase-progress-mini" id="prog-ph4"></div>
+      </div>
+      <div class="phase-toggle">▾</div>
+    </div>
+    <div class="phase-body">
+
+      <div class="hinweis" style="background: rgba(92,52,128,0.08); border-color: var(--violett);">
+        🕯️ <strong>Blitzrunde:</strong> Jede Person stellt ihre Wahlaufgabe in 60 Sekunden vor. Danach: Rückkehr zu den vier Aussagen vom Einstieg. <em>„Welche Phase hättet ihr am Anfang erkannt? Welche erst jetzt?"</em>
+      </div>
+
+      <div class="ab-grid" style="margin-top:14px;">
+        <div class="ab-item" data-id="ab4a">
+          <div class="ab-check-row">
+            <input type="checkbox" class="ab-check">
+            <div class="ab-text">
+              <div class="ab-title">Ergebnis der Wahlaufgabe vorgestellt</div>
+              <div class="ab-sub">Blitzrunde im Plenum · ca. 60 Sekunden</div>
+            </div>
+          </div>
+        </div>
+        <div class="ab-item" data-id="ab4b">
+          <div class="ab-check-row">
+            <input type="checkbox" class="ab-check">
+            <div class="ab-text">
+              <div class="ab-title">Leitfrage beantwortet</div>
+              <div class="ab-sub">„Was passiert in einem Menschen, wenn er weiß, dass er sterben wird – und wie können wir damit umgehen?"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lehrercheck-block lehrer-only">
+        <div class="lehrercheck-icon">📝</div>
+        <div class="lehrercheck-text">
+          <h4>Lehrerhinweis – Abschluss</h4>
+          <p>Blitzrunde: Je eine Gruppe stellt A, B, C und D vor (je ca. 60 Sek.). Dann Rückkehr zu den vier Einstiegs-Aussagen: „Welche Phase hätten wir am Anfang erkannt, welche erst jetzt?" – Das schließt den Kreis elegant. Optional: Kurzes persönliches Fazit auf einem Post-It (<em>„Was nehme ich aus dieser Stunde mit?"</em>).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       ALLE MATERIALIEN – SCHNELLZUGRIFF
+  ══════════════════════════════════════════════════════ -->
+  <div class="phase-card" id="phMat" style="border-color: rgba(196,130,74,0.4);">
+    <div class="phase-header" style="border-left: 5px solid var(--amber);">
+      <div class="phase-num" style="background: #7A4A10; font-size: 1rem;">📂</div>
+      <div class="phase-title-block">
+        <div class="phase-title">Alle Materialien – Schnellzugriff</div>
+        <div class="phase-desc">Sämtliche PDFs der Einheit im Überblick</div>
+      </div>
+      <div class="phase-toggle">▾</div>
+    </div>
+    <div class="phase-body">
+      <div class="ab-grid" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
+
+        <div style="padding:10px 0; font-size:0.82rem;">
+          <div class="section-label" style="margin-top:4px;">Lernplanung</div>
+          <a class="ab-link pdf" href="Laufplan.pdf" target="_blank">📄 Laufplan</a>
+        </div>
+
+        <div style="padding:10px 0; font-size:0.82rem;">
+          <div class="section-label" style="margin-top:4px;">Phase I – Sterbephasen</div>
+          <a class="ab-link pdf" href="AB_Phasen_des_Sterbens_1.pdf" target="_blank">📄 AB Phasen 1 (Sortieren)</a>
+          <div style="margin-top:6px;"><a class="ab-link pdf" href="AB_Phasen_des_Sterbens_2.pdf" target="_blank">📄 AB Phasen 2 (Zitate)</a></div>
+        </div>
+
+        <div style="padding:10px 0; font-size:0.82rem;">
+          <div class="section-label" style="margin-top:4px;">Phase II – Abschiednehmen</div>
+          <a class="ab-link pdf" href="AB_Abschiednehmen.pdf" target="_blank">📄 AB Abschiednehmen</a>
+          <div style="margin-top:6px;"><a class="ab-link pdf" href="Wie_wichtig_Abschiednehmen.pdf" target="_blank">📄 Ergänzungstext</a></div>
+        </div>
+
+        <div style="padding:10px 0; font-size:0.82rem;">
+          <div class="section-label" style="margin-top:4px;">Phase III – Wahlaufgaben</div>
+          <a class="ab-link pdf" href="AB_Phase4_Wahlaufgaben.pdf" target="_blank">📄 Alle Wahlaufgaben (A–D)</a>
+        </div>
+
+        <div style="padding:10px 0; font-size:0.82rem;">
+          <div class="section-label" style="margin-top:4px;">Für Lehrkräfte</div>
+          <a class="ab-link lhr" href="Lehrerhinweise.pdf" target="_blank">📋 Lehrerhinweise</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+var PHASE_ORDER = ['ph0','ph1','ph2','ph3','ph4'];
+var KEY = 'religion_jg9_sterben_progress';
+
+function togglePhase(id) {
+  var card = document.getElementById(id);
+  if (!card) return;
+  var body = card.querySelector('.phase-body');
+  if (!body) return;
+  var arrow = card.querySelector('.phase-toggle');
+  var isOpen = (window.getComputedStyle(body).display !== 'none');
+  if (isOpen) {
+    body.style.display = 'none';
+    card.classList.remove('open');
+    if (arrow) arrow.style.transform = '';
+  } else {
+    body.style.display = 'block';
+    card.classList.add('open');
+    if (arrow) arrow.style.transform = 'rotate(180deg)';
+  }
+}
+
+function loadProgress() {
+  try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e) { return {}; }
+}
+function saveProgress(data) {
+  try { localStorage.setItem(KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function updateCheck(checkbox, id) {
+  var data = loadProgress();
+  data[id] = checkbox.checked;
+  saveProgress(data);
+  var item = document.querySelector('[data-id="' + id + '"]');
+  if (item) item.classList.toggle('done', checkbox.checked);
+  updateProgressBar();
+  updatePhaseProgress();
+  updateLocks();
+}
+
+function updateProgressBar() {
+  var all = document.querySelectorAll('.ab-check');
+  var done = document.querySelectorAll('.ab-check:checked');
+  var pct = all.length ? (done.length / all.length * 100) : 0;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressCount').textContent = done.length + ' / ' + all.length;
+}
+
+function updatePhaseProgress() {
+  for (var p = 0; p < PHASE_ORDER.length; p++) {
+    var phId = PHASE_ORDER[p];
+    var card = document.getElementById(phId);
+    if (!card) continue;
+    var all = card.querySelectorAll('.ab-check');
+    var done = card.querySelectorAll('.ab-check:checked');
+    var el = document.getElementById('prog-' + phId);
+    if (el && all.length) {
+      el.textContent = done.length + ' von ' + all.length + ' erledigt';
+    }
+  }
+}
+
+function isPhaseComplete(phId) {
+  var card = document.getElementById(phId);
+  if (!card) return true;
+  var all = card.querySelectorAll('.ab-check');
+  if (!all.length) return true;
+  return card.querySelectorAll('.ab-check:checked').length === all.length;
+}
+
+function updateLocks() {
+  var lehrerModus = document.body.classList.contains('lehrer-modus');
+  for (var i = 0; i < PHASE_ORDER.length; i++) {
+    var phId = PHASE_ORDER[i];
+    var card = document.getElementById(phId);
+    if (!card) continue;
+    var phaseUnlocked = lehrerModus || i === 0 || isPhaseComplete(PHASE_ORDER[i - 1]);
+    var hint = card.querySelector('.unlock-hint');
+    if (!phaseUnlocked) {
+      if (!hint) {
+        hint = document.createElement('div');
+        hint.className = 'unlock-hint';
+        var tb = card.querySelector('.phase-title-block');
+        if (tb) tb.appendChild(hint);
+      }
+      hint.textContent = '🔒 Erst freigegeben wenn Phase ' + (i) + ' vollständig ist';
+    } else {
+      if (hint) hint.parentNode.removeChild(hint);
+    }
+    var items = card.querySelectorAll('[data-id]');
+    for (var j = 0; j < items.length; j++) {
+      var cb = items[j].querySelector('.ab-check');
+      if (!cb) continue;
+      var disable;
+      if (lehrerModus) {
+        disable = false;
+      } else if (!phaseUnlocked) {
+        disable = true;
+      } else {
+        if (j === 0) {
+          disable = false;
+        } else {
+          var prevCb = items[j - 1].querySelector('.ab-check');
+          disable = prevCb ? !prevCb.checked : false;
+        }
+      }
+      cb.disabled = disable;
+      if (disable && !cb.checked) {
+        items[j].classList.add('item-locked');
+      } else {
+        items[j].classList.remove('item-locked');
+      }
+    }
+  }
+}
+
+function resetProgress() {
+  if (!confirm('Fortschritt wirklich zurücksetzen?')) return;
+  try { localStorage.removeItem(KEY); } catch(e) {}
+  var cbs = document.querySelectorAll('.ab-check');
+  for (var i = 0; i < cbs.length; i++) { cbs[i].checked = false; }
+  var its = document.querySelectorAll('.ab-item');
+  for (var i = 0; i < its.length; i++) { its[i].classList.remove('done'); }
+  updateProgressBar();
+  updatePhaseProgress();
+  updateLocks();
+}
+
+function restoreProgress() {
+  var data = loadProgress();
+  var items = document.querySelectorAll('[data-id]');
+  for (var i = 0; i < items.length; i++) {
+    var id = items[i].dataset.id;
+    var cb = items[i].querySelector('.ab-check');
+    if (cb && data[id]) {
+      cb.checked = true;
+      items[i].classList.add('done');
+    }
+  }
+  updateProgressBar();
+  updatePhaseProgress();
+  updateLocks();
+}
+
+function setView(mode) {
+  document.body.classList.toggle('lehrer-modus', mode === 'lehrer');
+  document.getElementById('btnLehrer').classList.toggle('active', mode === 'lehrer');
+  document.getElementById('btnSchueler').classList.toggle('active', mode === 'schueler');
+  try { localStorage.setItem('religion_jg9_view', mode); } catch(e) {}
+  updateLocks();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var headers = document.querySelectorAll('.phase-header');
+  for (var h = 0; h < headers.length; h++) {
+    (function(hdr) {
+      hdr.addEventListener('click', function() {
+        var card = hdr.parentElement;
+        if (card) togglePhase(card.id);
+      });
+    })(headers[h]);
+  }
+
+  var btnS = document.getElementById('btnSchueler');
+  var btnL = document.getElementById('btnLehrer');
+  var btnR = document.getElementById('btnReset');
+  if (btnS) btnS.addEventListener('click', function() { setView('schueler'); });
+  if (btnL) btnL.addEventListener('click', function() { setView('lehrer'); });
+  if (btnR) btnR.addEventListener('click', resetProgress);
+
+  var cbs = document.querySelectorAll('.ab-check');
+  for (var c = 0; c < cbs.length; c++) {
+    (function(cb) {
+      cb.addEventListener('change', function() {
+        var item = cb.closest('[data-id]');
+        if (item) updateCheck(cb, item.dataset.id);
+      });
+    })(cbs[c]);
+  }
+
+  // Alle Phasen schließen außer Phase 0
+  var allCards = document.querySelectorAll('.phase-card');
+  for (var i = 0; i < allCards.length; i++) {
+    var body = allCards[i].querySelector('.phase-body');
+    var arrow = allCards[i].querySelector('.phase-toggle');
+    if (body) body.style.display = 'none';
+    allCards[i].classList.remove('open');
+    if (arrow) arrow.style.transform = '';
+  }
+  var ph0 = document.getElementById('ph0');
+  if (ph0) {
+    var ph0body = ph0.querySelector('.phase-body');
+    var ph0arrow = ph0.querySelector('.phase-toggle');
+    if (ph0body) ph0body.style.display = 'block';
+    ph0.classList.add('open');
+    if (ph0arrow) ph0arrow.style.transform = 'rotate(180deg)';
+  }
+
+  var savedView = 'schueler';
+  try { savedView = localStorage.getItem('religion_jg9_view') || 'schueler'; } catch(e) {}
+  setView(savedView);
+  restoreProgress();
+});
+</script>
+</body>
+</html>
