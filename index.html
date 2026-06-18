@@ -403,6 +403,50 @@
   ::-webkit-scrollbar { width: 8px; }
   ::-webkit-scrollbar-track { background: #0E0B18; }
   ::-webkit-scrollbar-thumb { background: var(--violett); border-radius: 4px; }
+
+  /* ─── PAUSE-KARTE (Digitales Üben) ────────────────────── */
+  .pause-card {
+    background: linear-gradient(135deg, #1A2830, #0F1E26);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(46,107,122,0.5);
+  }
+  .pause-header {
+    display: flex; align-items: center; gap: 16px;
+    padding: 18px 24px;
+    cursor: pointer; user-select: none;
+    border-left: 5px solid #2E6B7A;
+    transition: background 0.2s;
+    background: linear-gradient(135deg, #1A2830, #0F1E26);
+  }
+  .pause-header:hover { background: linear-gradient(135deg, #1E303A, #132028); }
+  .pause-icon {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: #2E6B7A;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .pause-title-block { flex: 1; }
+  .pause-title { font-size: 1.1rem; font-weight: bold; color: #A8DDE8; }
+  .pause-desc { font-size: 0.82rem; color: #6AABB8; margin-top: 3px; }
+  .pause-card .phase-toggle { color: #6AABB8; font-size: 1.3rem; transition: transform 0.3s; }
+  .pause-card.open .phase-toggle { transform: rotate(180deg); }
+  .pause-body {
+    display: none;
+    padding: 20px 24px 24px;
+    border-top: 1px solid rgba(46,107,122,0.3);
+  }
+  .pause-card.open .pause-body { display: block; }
+  .pause-intro {
+    font-size: 0.88rem; color: #8ABFC8; margin-bottom: 16px; line-height: 1.6;
+  }
+  .learningapps-wrap {
+    border-radius: 8px; overflow: hidden;
+    border: 1.5px solid rgba(46,107,122,0.4);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  }
 </style>
 </head>
 <body>
@@ -584,6 +628,26 @@
           <h4>Lehrerhinweis – Phase I</h4>
           <p>AB 1: Die fünf Textsegmente sind bewusst ohne Überschrift. Schüler entwickeln erst eigene Titel. AB 2: Ideal für 2er-Teams. Die Zuordnungsaufgabe kann auch als Streifen ausgeschnitten werden (Schere). Verbindung zum Einstieg herstellen: Aussagen A–D werden jetzt erklärt.</p>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       PAUSE – DIGITALES ÜBEN
+  ══════════════════════════════════════════════════════ -->
+  <div class="pause-card" id="pauseDigital">
+    <div class="pause-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="pause-icon">🎮</div>
+      <div class="pause-title-block">
+        <div class="pause-title">Digitale Übung: Sterbephasen zuordnen</div>
+        <div class="pause-desc">Teste dein Wissen · Aussagen und Situationen den 5 Phasen nach Kübler-Ross zuordnen</div>
+      </div>
+      <div class="phase-toggle">▾</div>
+    </div>
+    <div class="pause-body">
+      <p class="pause-intro">Kannst du die Aussagen und Situationen der richtigen Sterbephase zuordnen? Ziehe jede Karte in die passende Gruppe – alle 20 Karten, 5 Phasen.</p>
+      <div class="learningapps-wrap">
+        <iframe src="https://learningapps.org/watch?v=p8mevaemn26" style="border:0px;width:100%;height:520px" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
       </div>
     </div>
   </div>
