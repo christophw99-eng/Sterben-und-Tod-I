@@ -447,6 +447,33 @@
     border: 1.5px solid rgba(46,107,122,0.4);
     box-shadow: 0 4px 16px rgba(0,0,0,0.4);
   }
+
+  /* ─── SPIELPAUSE-GRID ──────────────────────────────────── */
+  .spiel-section-label {
+    font-size: 0.92rem; font-weight: bold;
+    color: #A8DDE8; letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(46,107,122,0.3);
+    padding-bottom: 6px; margin-bottom: 16px;
+    margin-top: 8px;
+  }
+  .spiel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+  .spiel-item {
+    background: rgba(255,255,255,0.04);
+    border-radius: 10px;
+    padding: 14px;
+    border: 1px solid rgba(46,107,122,0.25);
+  }
+  .spiel-titel {
+    font-size: 1rem; font-weight: bold; color: #C8EEF4;
+    margin-bottom: 3px;
+  }
+  .spiel-typ {
+    font-size: 0.78rem; color: #6AABB8; margin-bottom: 2px;
+  }
 </style>
 </head>
 <body>
@@ -831,6 +858,61 @@
           <p>Blitzrunde: Je eine Gruppe stellt A, B, C und D vor (je ca. 60 Sek.). Dann Rückkehr zu den vier Einstiegs-Aussagen: „Welche Phase hätten wir am Anfang erkannt, welche erst jetzt?" – Das schließt den Kreis elegant. Optional: Kurzes persönliches Fazit auf einem Post-It (<em>„Was nehme ich aus dieser Stunde mit?"</em>).</p>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       PAUSE – SPIELE & DIGITALES ÜBEN
+  ══════════════════════════════════════════════════════ -->
+  <div class="pause-card" id="pauseSpiele">
+    <div class="pause-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="pause-icon">🎲</div>
+      <div class="pause-title-block">
+        <div class="pause-title">Spielpause – Hiob &amp; Buddhismus</div>
+        <div class="pause-desc">Freiwillig · Für Schnelle oder als Pause · Interaktive Spiele zu zwei weiteren Themen</div>
+      </div>
+      <div class="phase-toggle">▾</div>
+    </div>
+    <div class="pause-body">
+
+      <div class="spiel-section-label">📖 Hiob – Der leidende Gerechte</div>
+
+      <div class="spiel-grid">
+        <div class="spiel-item">
+          <div class="spiel-titel">Fragen zu Hiob</div>
+          <div class="spiel-typ">🏇 Pferderennen-Quiz · Religionsunterricht</div>
+          <div class="learningapps-wrap" style="margin-top:10px;">
+            <iframe src="https://learningapps.org/watch?v=18118528" style="border:0px;width:100%;height:480px" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+          </div>
+        </div>
+        <div class="spiel-item">
+          <div class="spiel-titel">Joseph Roth: Hiob</div>
+          <div class="spiel-typ">💰 Millionenspiel · Fragen zum Roman und zur biblischen Figur</div>
+          <div class="learningapps-wrap" style="margin-top:10px;">
+            <iframe src="https://learningapps.org/watch?v=519917" style="border:0px;width:100%;height:480px" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="spiel-section-label" style="margin-top:28px;">🪷 Buddhismus – Grundlagen und Weltsicht</div>
+
+      <div class="spiel-grid">
+        <div class="spiel-item">
+          <div class="spiel-titel">Buddhismus im Galopp</div>
+          <div class="spiel-typ">🏇 Pferderennen-Quiz · Grundbegriffe und Kernaussagen</div>
+          <div class="learningapps-wrap" style="margin-top:10px;">
+            <iframe src="https://learningapps.org/watch?v=4640866" style="border:0px;width:100%;height:480px" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+          </div>
+        </div>
+        <div class="spiel-item">
+          <div class="spiel-titel">Kreuzworträtsel Buddhismus</div>
+          <div class="spiel-typ">✏️ Kreuzworträtsel · Begriffe und Konzepte des Buddhismus</div>
+          <div class="learningapps-wrap" style="margin-top:10px;">
+            <iframe src="https://learningapps.org/watch?v=4641466" style="border:0px;width:100%;height:480px" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
