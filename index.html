@@ -474,6 +474,19 @@
   .spiel-typ {
     font-size: 0.78rem; color: #6AABB8; margin-bottom: 2px;
   }
+  .la-placeholder {
+    margin-top: 10px; border-radius: 8px;
+    background: rgba(46,107,122,0.12);
+    border: 1.5px dashed rgba(46,107,122,0.4);
+    height: 80px; display: flex; align-items: center; justify-content: center;
+  }
+  .la-start-btn {
+    background: #2E6B7A; color: #E0F4F8; border: none;
+    padding: 10px 24px; border-radius: 20px; font-size: 0.9rem;
+    cursor: pointer; font-family: 'Georgia', serif;
+    transition: background 0.2s;
+  }
+  .la-start-btn:hover { background: #3A8090; }
 </style>
 </head>
 <body>
@@ -881,15 +894,15 @@
         <div class="spiel-item">
           <div class="spiel-titel">Fragen zu Hiob</div>
           <div class="spiel-typ">🏇 Pferderennen-Quiz · Religionsunterricht</div>
-          <div class="learningapps-wrap" style="margin-top:10px;">
-            <iframe src="https://learningapps.org/watch?v=18118528" style="border:0px;width:100%;height:480px" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+          <div class="la-placeholder" data-src="https://learningapps.org/watch?v=18118528">
+            <button class="la-start-btn" onclick="loadLA(this)">▶ Spiel starten</button>
           </div>
         </div>
         <div class="spiel-item">
           <div class="spiel-titel">Hiob (Bibel)</div>
           <div class="spiel-typ">❓ Multiple-Choice-Quiz · Figur aus der Bibel</div>
-          <div class="learningapps-wrap" style="margin-top:10px;">
-            <iframe src="https://learningapps.org/watch?v=39350881" style="border:0px;width:100%;height:480px" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+          <div class="la-placeholder" data-src="https://learningapps.org/watch?v=39350881">
+            <button class="la-start-btn" onclick="loadLA(this)">▶ Spiel starten</button>
           </div>
         </div>
       </div>
@@ -900,22 +913,22 @@
         <div class="spiel-item">
           <div class="spiel-titel">Buddhismus im Galopp</div>
           <div class="spiel-typ">🏇 Pferderennen-Quiz · Grundbegriffe und Kernaussagen</div>
-          <div class="learningapps-wrap" style="margin-top:10px;">
-            <iframe src="https://learningapps.org/watch?v=4640866" style="border:0px;width:100%;height:480px" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+          <div class="la-placeholder" data-src="https://learningapps.org/watch?v=4640866">
+            <button class="la-start-btn" onclick="loadLA(this)">▶ Spiel starten</button>
           </div>
         </div>
         <div class="spiel-item">
           <div class="spiel-titel">Buddhismus – Multiple Choice Quiz</div>
           <div class="spiel-typ">❓ Multiple-Choice · Grundwissen Buddhismus</div>
-          <div class="learningapps-wrap" style="margin-top:10px;">
-            <iframe src="https://learningapps.org/watch?v=15034659" style="border:0px;width:100%;height:480px" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+          <div class="la-placeholder" data-src="https://learningapps.org/watch?v=15034659">
+            <button class="la-start-btn" onclick="loadLA(this)">▶ Spiel starten</button>
           </div>
         </div>
         <div class="spiel-item">
           <div class="spiel-titel">Buddhismus – Millionenspiel</div>
           <div class="spiel-typ">💰 Millionenspiel · Wissen testen</div>
-          <div class="learningapps-wrap" style="margin-top:10px;">
-            <iframe src="https://learningapps.org/watch?v=17772826" style="border:0px;width:100%;height:480px" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+          <div class="la-placeholder" data-src="https://learningapps.org/watch?v=17772826">
+            <button class="la-start-btn" onclick="loadLA(this)">▶ Spiel starten</button>
           </div>
         </div>
       </div>
@@ -1174,6 +1187,16 @@ document.addEventListener('DOMContentLoaded', function() {
   setView(savedView);
   restoreProgress();
 });
+
+function loadLA(btn) {
+  var wrap = btn.parentElement;
+  var src = wrap.getAttribute('data-src');
+  if (!src) return;
+  wrap.innerHTML = '<iframe src="' + src + '" style="border:0;width:100%;height:480px" allowfullscreen="true"></iframe>';
+  wrap.style.height = 'auto';
+  wrap.style.background = 'none';
+  wrap.style.border = 'none';
+}
 </script>
 </body>
 </html>
